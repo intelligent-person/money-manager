@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import BottomNavigate from "./BottomNavigate";
+import BottomNavigate from "./Navigate/BottomNavigate";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import GestureRecognizer from "react-native-swipe-gestures";
 import Header from "./Header";

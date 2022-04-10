@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import BottomNavigate from "./BottomNavigate";
+import BottomNavigate from "./Navigate/BottomNavigate";
 import GestureRecognizer from "react-native-swipe-gestures";
 import Header from "./Header";
 import { RootStackParamList } from "../types/types";

@@ -6,11 +6,6 @@ export type AddCategoryNavigateProps = NativeStackScreenProps<
   "AddCategory"
 >;
 
-export type AddCategoryButtonNavigateProps = NativeStackScreenProps<
-  RootStackParamList,
-  "AddTransaction"
->;
-
 export type AddTransactionNavigateProps = NativeStackScreenProps<
   RootStackParamList,
   "AddTransaction"
@@ -21,7 +16,3 @@ export type BottomNavigateProps = NativeStackScreenProps<
   "Income" | "Expenses"
 >;
 
-export type CategoriesNavigateProps = NativeStackScreenProps<
-  RootStackParamList,
-  "AddTransaction"
->;

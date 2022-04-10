@@ -7,14 +7,14 @@ import { getCategory } from "../../../AsyncStorage/CategoryStorage";
 import { useMemo } from "react";
 import { useFlexCategories } from "../../hooks/useFlexCategories";
 import {Category, SelectedCategory} from "../../types/types";
-import { CategoriesNavigateProps } from "../../types/navigateProps";
+import {AddTransactionNavigateProps} from "../../types/navigateProps";
 
 const BannerWidth = Dimensions.get("window").width;
 
-const UserCategories = ({ navigation, route }: CategoriesNavigateProps) => {
+const UserCategories = ({ navigation, route }: AddTransactionNavigateProps) => {
   const [selectedCategory, setSelectedCategory] =
       useState<SelectedCategory>(null);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const routes = navigation.getState()?.routes;
   const prevRoute = routes[routes.length - 2].name;
 
@@ -41,7 +41,7 @@ const UserCategories = ({ navigation, route }: CategoriesNavigateProps) => {
         loop={false}
         width={BannerWidth}
       >
-        {subCategories.map((array, index) => (
+        {subCategories.map((array: Category[], index) => (
           <View style={styles.categoriesRowWrapper} key={index}>
             {array.map((category: Category, subIndex) =>
               subIndex === size - 1 && index === subCategories.length - 1 ? (

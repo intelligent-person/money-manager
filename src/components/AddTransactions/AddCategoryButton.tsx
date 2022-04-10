@@ -1,10 +1,10 @@
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableHighlight } from "../../styles/touchable";
-import { AddCategoryButtonNavigateProps } from "../../types/navigateProps";
+import {AddTransactionNavigateProps} from "../../types/navigateProps";
 import { StyleSheet, View, Text } from "react-native";
 
-const AddCategoryButton = ({ navigation }: AddCategoryButtonNavigateProps) => {
+const AddCategoryButton = ({ navigation }: AddTransactionNavigateProps) => {
   return (
     <View style={styles.category}>
       <TouchableHighlight

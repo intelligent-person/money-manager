@@ -2,6 +2,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Category, CategoryIconType, SelectedCategory } from "./types";
 import * as React from "react";
 import {FormikHandlers, FormikValues} from "formik/dist/types";
+import {BottomNavigateProps} from "./navigateProps";
 
 export interface AllCategoriesProps {
   subCategories: Array<CategoryIconType[] | Category[]>;
@@ -58,4 +59,8 @@ export interface SubmitButtonProps {
   prevRoute: string;
   disable: boolean;
   type: "amount" | "category";
+}
+
+export interface NavigateButtonProps extends BottomNavigateProps {
+  type: "Income" | "Expenses"
 }
