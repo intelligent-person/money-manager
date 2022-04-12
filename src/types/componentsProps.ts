@@ -1,8 +1,31 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Category, CategoryIconType, SelectedCategory } from "./types";
 import * as React from "react";
-import {FormikHandlers, FormikValues} from "formik/dist/types";
-import {BottomNavigateProps} from "./navigateProps";
+import {FormikValues} from "formik/dist/types";
+import {AddTransactionNavigateProps, BottomNavigateProps} from "./navigateProps";
+import { Dispatch, SetStateAction } from "react";
+
+export interface UserCategoriesProps extends AddTransactionNavigateProps {
+  categories: Array<Category[]>
+  size: number
+  selectedCategory: SelectedCategory
+  setSelectedCategory: Dispatch<SetStateAction<SelectedCategory>>
+}
+
+export interface TitleTransactionProps {
+  setTitle: Dispatch<SetStateAction<string>>
+}
+
+export interface AddTransactionFieldProps {
+  prevRoute: 'expenses' | 'income'
+  selectedCategory: SelectedCategory
+  title: string
+}
+
+export interface AddTransactionProps extends AddTransactionNavigateProps{
+  categories: Array<Category[]>
+  size: number
+  prevRoute: string
+}
 
 export interface AllCategoriesProps {
   subCategories: Array<CategoryIconType[] | Category[]>;
@@ -52,6 +75,8 @@ export interface EraseAmountButtonProps {
 
 export interface AddTransactionAmountProps {
   amount: string
+  userCurrency: string
+  setUserCurrency: Dispatch<SetStateAction<string>>
 }
 
 export interface SubmitButtonProps {

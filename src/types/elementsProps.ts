@@ -1,4 +1,4 @@
-import {TextInputProps, TouchableHighlightProps, TouchableOpacityProps} from "react-native";
+import {TextInputProps, TouchableHighlightProps, TouchableOpacityProps, ViewProps} from "react-native";
 import { theme } from "../styles/Theme";
 
 export type TouchableHighlightElementProps = {
@@ -6,7 +6,7 @@ export type TouchableHighlightElementProps = {
     category?: boolean;
     nav?: boolean;
     numberButton?: boolean
-    addAmount?: boolean
+    submit?: boolean
 } & TouchableHighlightProps;
 
 export type TouchableOpacityElementProps = {
@@ -19,3 +19,9 @@ export type InputElementProps = {
     addTransaction?: boolean;
     addCategory?: boolean;
 } & TextInputProps;
+
+export type TabElementProps = {
+    theme?: typeof theme;
+    centeredView?: boolean;
+    modalView?: boolean;
+} & ViewProps;

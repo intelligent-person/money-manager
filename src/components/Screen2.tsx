@@ -5,14 +5,17 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import GestureRecognizer from "react-native-swipe-gestures";
 import Header from "./Header";
 import { RootStackParamList } from "../types/types";
+import {useFetchBalance} from "../hooks/balance/useFetchBalance";
 
 type NavigateProps = NativeStackScreenProps<RootStackParamList, "Expenses">;
 const Screen2 = ({ navigation, route }: NavigateProps) => {
-  return (
+  const {data: balance, isLoading} = useFetchBalance('Expenses')
+
+  return isLoading ? <View></View> : (
     <View style={styles.screen}>
       <Header />
       <GestureRecognizer onSwipeRight={() => navigation.navigate("Income")}>
-        <Text style={styles.title}>Screen 2</Text>
+        <Text style={styles.title}>{balance.amount}</Text>
       </GestureRecognizer>
       <BottomNavigate navigation={navigation} route={route} />
     </View>

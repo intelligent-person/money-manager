@@ -14,7 +14,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   const colors =
     prevRoute === "Income" ? ["#0eb713", "#3ae83a"] : ["#970dbd", "#eb53f1"];
   return (
-    <TouchableHighlight addAmount onPress={onSubmit} disabled={disable}>
+    <TouchableHighlight submit onPress={onSubmit} disabled={disable}>
       <LinearGradient
         end={{ x: 0.4, y: 2 }}
         colors={colors}

@@ -3,6 +3,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableHighlight } from "../../styles/touchable";
 import {AddTransactionNavigateProps} from "../../types/navigateProps";
 import { StyleSheet, View, Text } from "react-native";
+import {normalize} from "../../utils/normalizeSize";
 
 const AddCategoryButton = ({ navigation }: AddTransactionNavigateProps) => {
   return (
@@ -22,8 +23,8 @@ const AddCategoryButton = ({ navigation }: AddTransactionNavigateProps) => {
 const styles = StyleSheet.create({
   category: {
     alignItems: "center",
-    width: 100,
-    marginBottom: 10,
+    width: normalize(80),
+    marginBottom: normalize(10),
   },
   addCategoryText: {
     color: "grey",

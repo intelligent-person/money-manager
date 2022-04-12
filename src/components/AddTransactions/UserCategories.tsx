@@ -1,37 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {Dimensions, StyleSheet, View} from "react-native";
 import Swiper from "react-native-swiper";
 import CategoryIcon from "../CategoryIcon";
 import AddCategoryButton from "./AddCategoryButton";
-import { getCategory } from "../../../AsyncStorage/CategoryStorage";
-import { useMemo } from "react";
-import { useFlexCategories } from "../../hooks/useFlexCategories";
-import {Category, SelectedCategory} from "../../types/types";
-import {AddTransactionNavigateProps} from "../../types/navigateProps";
+import {Category} from "../../types/types";
+import {UserCategoriesProps} from "../../types/componentsProps";
+import {normalize} from "../../utils/normalizeSize";
 
 const BannerWidth = Dimensions.get("window").width;
 
-const UserCategories = ({ navigation, route }: AddTransactionNavigateProps) => {
-  const [selectedCategory, setSelectedCategory] =
-      useState<SelectedCategory>(null);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const routes = navigation.getState()?.routes;
-  const prevRoute = routes[routes.length - 2].name;
-
-  useEffect(() => {
-    const key =
-      prevRoute === "Income" ? "incomeCategories" : "expensesCategories";
-    const fetchCategories = async () => {
-      const categories = await getCategory(key);
-      setCategories(categories);
-    };
-    fetchCategories().catch(console.error);
-  }, []);
-
-  const { subCategories, size } = useMemo(
-    () => useFlexCategories(categories, 6),
-    [categories]
-  );
+const UserCategories: React.FC<UserCategoriesProps> = ({
+    navigation,
+    route,
+    categories,
+    size,
+    selectedCategory,
+    setSelectedCategory
+  }) => {
 
   return (
     <View style={styles.categoriesWrapper}>
@@ -41,11 +26,11 @@ const UserCategories = ({ navigation, route }: AddTransactionNavigateProps) => {
         loop={false}
         width={BannerWidth}
       >
-        {subCategories.map((array: Category[], index) => (
+        {categories.map((array: Category[], index: number) => (
           <View style={styles.categoriesRowWrapper} key={index}>
             {array.map((category: Category, subIndex) =>
-              subIndex === size - 1 && index === subCategories.length - 1 ? (
-                <AddCategoryButton navigation={navigation} route={route} />
+              subIndex === size - 1 && index === categories.length - 1 ? (
+                <AddCategoryButton navigation={navigation} route={route}/>
               ) : (
                 <CategoryIcon
                   key={category.name}
@@ -57,8 +42,8 @@ const UserCategories = ({ navigation, route }: AddTransactionNavigateProps) => {
                 />
               )
             )}
-            {index === subCategories.length - 1 && (
-              <AddCategoryButton navigation={navigation} route={route} />
+            {index === categories.length - 1 && (
+              <AddCategoryButton navigation={navigation} route={route}/>
             )}
           </View>
         ))}
@@ -71,17 +56,16 @@ const styles = StyleSheet.create({
   categoriesWrapper: {
     width: "100%",
     alignItems: "center",
-    paddingHorizontal: 10,
-    height: 200,
+    height: normalize(160),
   },
   categoriesRowWrapper: {
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingHorizontal: 30,
+    paddingHorizontal: normalize(10),
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    marginBottom: 20,
+    marginBottom: normalize(20),
   },
 })
 

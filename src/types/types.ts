@@ -2,6 +2,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export type CategoryIconType = keyof typeof MaterialCommunityIcons.glyphMap
 
+export interface Balance {
+  amount: number,
+  date: number,
+  currency: string,
+  title: string,
+}
+
 export interface Category {
   iconName: CategoryIconType;
   color: string;

@@ -3,6 +3,7 @@ import { AllCategoriesProps } from "../../types/componentsProps";
 import CategoryIcon from "../CategoryIcon";
 import { Dimensions, StyleSheet, View } from "react-native";
 import Swiper from "react-native-swiper";
+import {normalize} from "../../utils/normalizeSize";
 
 const BannerWidth = Dimensions.get("window").width;
 
@@ -12,6 +13,7 @@ const AllCategories: React.FC<AllCategoriesProps> = ({
   setSelectedCategory,
   subCategories,
 }) => {
+  
   return (
     <View style={styles.wrapper}>
       <Swiper
@@ -19,7 +21,7 @@ const AllCategories: React.FC<AllCategoriesProps> = ({
         showsPagination={true}
         loop={false}
         width={BannerWidth}
-        paginationStyle={{ marginBottom: -40 }}
+        paginationStyle={{ marginBottom: normalize(-30) }}
       >
         {subCategories.map((categories, index: number) => (
           <View style={styles.categoriesRowWrapper} key={index}>
@@ -43,17 +45,17 @@ const AllCategories: React.FC<AllCategoriesProps> = ({
 const styles = StyleSheet.create({
   wrapper: {
     alignItems: "center",
-    height: 215,
-    marginTop: 20,
+    height: normalize(200),
+    marginTop: normalize(10),
   },
   categoriesRowWrapper: {
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingHorizontal: 30,
+    paddingHorizontal: normalize(20),
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    marginBottom: 20,
+    marginBottom: normalize(20),
   },
 });
 

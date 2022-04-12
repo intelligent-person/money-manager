@@ -1,25 +1,29 @@
+import {normalize} from "../utils/normalizeSize";
+
 export const theme = {
   TouchableHighlight: {
     category: {
       shadowColor: "black",
       backgroundColor: "white",
       borderRadius: "50px",
-      elevation: 7,
-      width: "60px",
-      height: "60px",
+      elevation: normalize(7),
+      width: `${normalize(55)}px`,
+      height: `${normalize(55)}px`,
       alignItems: "center",
       justifyContent: "center",
     },
     numberButton: {
       borderColor: "#dedcdc",
-      borderWidth: "1px",
-      marginBottom: "15px",
+      borderWidth: `${normalize(1)}px`,
+      marginBottom: `${normalize(10)}px`,
     },
-    addAmount: {
+    submit: {
       shadowColor: "black",
       borderRadius: "50px",
       elevation: 5,
-      marginTop: "10px",
+      marginTop: `${normalize(10)}px`,
+      position: 'absolute',
+      bottom: `${normalize(15)}px`,
     },
     nav: {
       flex: 1,
@@ -28,17 +32,18 @@ export const theme = {
   },
   Input: {
     addTransaction: {
-      marginBottom: "10px",
-      fontSize: "20px",
-      width: "300px",
-      height: "40px",
-      paddingLeft: "6px",
+      marginBottom: `${normalize(10)}px`,
+      fontSize: `${normalize(18)}px`,
+      width: `${normalize(260)}px`,
+      height: `${normalize(40)}px`,
+      paddingLeft: `${normalize(6)}px`,
     },
     addCategory: {
-      fontSize: '20px',
-      width: '250px',
-      height: '40px',
-      paddingLeft: '6px',
+      fontSize: `${normalize(18)}px`,
+      width: `${normalize(200)}px`,
+      height: `${normalize(35)}px`,
+      paddingLeft: `${normalize(6)}px`,
     }
   },
+
 };

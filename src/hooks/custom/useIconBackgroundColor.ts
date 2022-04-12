@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {SelectedCategory} from "../types/types";
+import {SelectedCategory} from "../../types/types";
 
 export const useIconBackgroundColor = (
   iconName: keyof typeof MaterialCommunityIcons.glyphMap,

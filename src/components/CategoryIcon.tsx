@@ -2,9 +2,10 @@ import React, { useMemo } from "react";
 import { css } from "@emotion/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableHighlight } from "../styles/touchable";
-import { useIconBackgroundColor } from "../hooks/useIconBackgroundColor";
+import { useIconBackgroundColor } from "../hooks/custom/useIconBackgroundColor";
 import { CategoryIconProps } from "../types/componentsProps";
 import { StyleSheet, View, Text } from "react-native";
+import {normalize} from "../utils/normalizeSize";
 
 const CategoryIcon: React.FC<CategoryIconProps> = ({
   name,
@@ -35,7 +36,7 @@ const CategoryIcon: React.FC<CategoryIconProps> = ({
         `}
         onPress={selectCategory}
       >
-        <MaterialCommunityIcons name={iconName} size={40} color="white" />
+        <MaterialCommunityIcons name={iconName} size={normalize(40)} color="white" />
       </TouchableHighlight>
       {name && (
         <Text style={styles.categoryName}>

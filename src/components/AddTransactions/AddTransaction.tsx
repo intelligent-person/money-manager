@@ -1,105 +1,62 @@
-import React, { useState } from "react";
-import NumberButton from "../NumberButton";
-import EraseAmountButton from "./EraseAmountButton";
-import SubmitButton from "../SubmitButton";
+import React, {useState} from "react";
 import UserCategories from "./UserCategories";
 import TitleTransaction from "./TitleTransaction";
-import { AddTransactionNavigateProps } from "../../types/navigateProps";
-import { StyleSheet, View} from "react-native";
-import TransactionAmount from "./TransactionAmount";
+import {StyleSheet, View} from "react-native";
+import {normalize} from "../../utils/normalizeSize";
+import AddTransactionField from "./AddTransactionField";
+import {AddTransactionProps} from "../../types/componentsProps";
+import {SelectedCategory} from "../../types/types";
 
-const AddTransaction = ({ navigation, route }: AddTransactionNavigateProps) => {
-  const [amount, setAmount] = useState("0");
-  const routes = navigation.getState()?.routes;
-  const prevRoute = routes[routes.length - 2].name;
+const AddTransaction: React.FC<AddTransactionProps> = ({navigation, route, prevRoute, size, categories}) => {
+  const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>(null);
+  const [title, setTitle] = React.useState("");
 
-  const writeAmount = (number: string) => {
-    setAmount((prevState) =>
-      prevState.length < 10
-        ? prevState !== "0"
-          ? prevState.concat(number)
-          : number === "."
-          ? "0."
-          : number
-        : prevState
-    );
-  };
-
-  const eraseAmount = () => {
-    setAmount((prevState) =>
-      prevState.length === 1
-        ? "0"
-        : prevState.substring(0, prevState.length - 1)
-    );
-  };
-
-  const onSubmit = () => {
-    setAmount("0");
-  };
   return (
-    <View style={styles.screen}>
-      <TitleTransaction />
-      <View style={styles.params}>
-        <UserCategories navigation={navigation} route={route} />
+    <View style={styles.centeredView}>
+      <View style={styles.modalView}>
+        <TitleTransaction setTitle={setTitle}/>
+        <UserCategories
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          navigation={navigation}
+          route={route}
+          categories={categories}
+          size={size}
+        />
+        <AddTransactionField
+          prevRoute={prevRoute}
+          selectedCategory={selectedCategory}
+          title={title}
+        />
 
-        <View style={styles.addTransactionField}>
-          <TransactionAmount amount={amount} />
-
-          <View style={styles.addTransactionNumberRow}>
-            <NumberButton number={"1"} writeAmount={writeAmount} />
-            <NumberButton number={"2"} writeAmount={writeAmount} />
-            <NumberButton number={"3"} writeAmount={writeAmount} />
-          </View>
-          <View style={styles.addTransactionNumberRow}>
-            <NumberButton number={"4"} writeAmount={writeAmount} />
-            <NumberButton number={"5"} writeAmount={writeAmount} />
-            <NumberButton number={"6"} writeAmount={writeAmount} />
-          </View>
-          <View style={styles.addTransactionNumberRow}>
-            <NumberButton number={"7"} writeAmount={writeAmount} />
-            <NumberButton number={"8"} writeAmount={writeAmount} />
-            <NumberButton number={"9"} writeAmount={writeAmount} />
-          </View>
-          <View style={styles.addTransactionNumberRow}>
-            <NumberButton number={"."} writeAmount={writeAmount} />
-            <NumberButton number={"0"} writeAmount={writeAmount} />
-            <EraseAmountButton eraseAmount={eraseAmount} />
-          </View>
-
-          <SubmitButton
-            disable={amount === "0"}
-            prevRoute={prevRoute}
-            onSubmit={onSubmit}
-            type={"amount"}
-          />
-        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
+  },
+  modalView: {
+    position: "absolute",
+    width: "95%",
+    height: "98%",
     backgroundColor: "white",
-    height: "100%",
-    width: "100%",
-    justifyContent: "space-between",
-  },
-  params: {
+    paddingVertical: normalize(15),
+    borderRadius: 20,
     alignItems: "center",
-  },
-  addTransactionField: {
-    position: "relative",
-    width: "100%",
-    alignItems: "center",
-    bottom: 20,
-  },
-  addTransactionNumberRow: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "70%",
-  },
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: normalize(5),
+  }
 });
 
 export default AddTransaction;

@@ -4,9 +4,9 @@
     "slug": "MoneyManager",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/174-1748919_cash-png-animated-cartoon-stacks-of-money-png.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/lovepik-money-png-image_400242554_wh1200.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/174-1748919_cash-png-animated-cartoon-stacks-of-money-png.png",
         "backgroundColor": "#FFFFFF"
       }
     },

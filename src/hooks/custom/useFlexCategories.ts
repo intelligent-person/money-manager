@@ -8,6 +8,5 @@ export const useFlexCategories = (categories: any, size: number) => {
   if(size === 9) return {subCategories, size}
 
   if (categories.length % size === 0) subCategories[subCategories.length] = [];
-
   return { size, subCategories };
 };

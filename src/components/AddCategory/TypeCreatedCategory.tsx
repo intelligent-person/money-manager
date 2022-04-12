@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
   radio: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
   },
 });
 

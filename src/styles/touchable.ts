@@ -34,12 +34,14 @@ export const TouchableHighlight: React.FC<TouchableHighlightElementProps> = styl
   `}
   
   ${(props) =>
-    props.addAmount &&
+    props.submit &&
     `
-    shadow-color: ${props.theme.TouchableHighlight.addAmount.shadowColor};
-    margin-top: ${props.theme.TouchableHighlight.addAmount.marginTop};
-    border-radius: ${props.theme.TouchableHighlight.addAmount.borderRadius};
-    elevation: ${props.theme.TouchableHighlight.addAmount.elevation};
+    shadow-color: ${props.theme.TouchableHighlight.submit.shadowColor};
+    margin-top: ${props.theme.TouchableHighlight.submit.marginTop};
+    border-radius: ${props.theme.TouchableHighlight.submit.borderRadius};
+    elevation: ${props.theme.TouchableHighlight.submit.elevation};
+    bottom: ${props.theme.TouchableHighlight.submit.bottom};
+    position: ${props.theme.TouchableHighlight.submit.position};
   `}
   
 `;

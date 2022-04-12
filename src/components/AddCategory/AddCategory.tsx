@@ -1,21 +1,24 @@
-import React, { useMemo } from "react";
-import { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, {useMemo} from "react";
+import {useState} from "react";
+import {View, StyleSheet, Keyboard} from "react-native";
 import ColorPicker from "react-native-wheel-color-picker";
-import { Formik } from "formik";
-import { getCategory, storeCategory } from "../../../AsyncStorage/CategoryStorage";
-import { categories } from "../../utils/categories";
-import { loginValidationSchema } from "../../validate/addCategory";
+import {Formik} from "formik";
+import {getItem} from "../../../AsyncStorage/AsyncStorage";
+import {categories} from "../../utils/categories";
+import {loginValidationSchema} from "../../validate/addCategory";
 import AllCategories from "./AllCategories";
-import { AddCategoryNavigateProps } from "../../types/navigateProps";
-import { CategoryIconType } from "../../types/types";
+import {AddCategoryNavigateProps} from "../../types/navigateProps";
+import {CategoryIconType} from "../../types/types";
 import SubmitButton from "../SubmitButton";
-import { useFlexCategories } from "../../hooks/useFlexCategories";
+import {useFlexCategories} from "../../hooks/custom/useFlexCategories";
 import TypeCreatedCategory from "./TypeCreatedCategory";
 import NameCreatedCategory from "./NameCreatedCategory";
 import ErrorText from "../ErrorText";
+import {useAddCategory} from "../../hooks/categories/useAddCategory";
+import {normalize} from "../../utils/normalizeSize";
+import {useCategoryVisible} from "../../hooks/custom/useCategoryVisible";
 
-const AddCategory = ({ navigation }: AddCategoryNavigateProps) => {
+const AddCategory = ({navigation}: AddCategoryNavigateProps) => {
   const routes = navigation.getState()?.routes;
   const prevRoute = routes[routes.length - 3].name;
   const initialColor = prevRoute === "Income" ? "#31c536" : "#b227d9";
@@ -23,7 +26,11 @@ const AddCategory = ({ navigation }: AddCategoryNavigateProps) => {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryIconType>("view-list");
 
-  const { subCategories } = useMemo(
+  const {isKeyboardVisible} = useCategoryVisible()
+
+  const mutation = useAddCategory()
+
+  const {subCategories} = useMemo(
     () => useFlexCategories(categories, 9),
     [categories]
   );
@@ -33,21 +40,23 @@ const AddCategory = ({ navigation }: AddCategoryNavigateProps) => {
       values.transactionType === "Income"
         ? "incomeCategories"
         : "expensesCategories";
-    const prevState = await getCategory(key);
-    await storeCategory(key, [
-      { name: values.title, iconName: selectedCategory, color },
-      ...prevState,
-    ]);
+    const prevState = await getItem(key);
+    await mutation.mutateAsync({
+      key, newCategory: [
+        {name: values.title, iconName: selectedCategory, color},
+        ...prevState,
+      ]
+    })
     navigation.goBack();
   };
 
   return (
     <Formik
-      initialValues={{ title: "", transactionType: "" }}
+      initialValues={{title: "", transactionType: ""}}
       onSubmit={onSubmit}
       validationSchema={loginValidationSchema}
     >
-      {({ touched, errors, handleChange, handleSubmit, values }) => (
+      {({touched, errors, handleChange, handleSubmit, values}) => (
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <NameCreatedCategory
@@ -55,11 +64,11 @@ const AddCategory = ({ navigation }: AddCategoryNavigateProps) => {
               selectedCategory={selectedCategory}
               handleChange={handleChange}
             />
-            {errors.title && touched.title && <ErrorText text={errors.title} />}
+            {errors.title && touched.title && <ErrorText text={errors.title}/>}
 
-            <TypeCreatedCategory handleChange={handleChange} values={values} />
+            <TypeCreatedCategory handleChange={handleChange} values={values}/>
             {errors.transactionType && touched.transactionType && (
-              <ErrorText text={errors.transactionType} />
+              <ErrorText text={errors.transactionType}/>
             )}
 
             <AllCategories
@@ -68,15 +77,15 @@ const AddCategory = ({ navigation }: AddCategoryNavigateProps) => {
               color={color}
               selectedCategory={selectedCategory}
             />
-
-            <ColorPicker
-              onColorChangeComplete={(color) => setColor(color)}
-              color={color}
-              swatches={false}
-              row={false}
-              sliderHidden={true}
-            />
-
+            {!isKeyboardVisible &&
+              <ColorPicker
+                onColorChangeComplete={(color) => setColor(color)}
+                color={color}
+                swatches={false}
+                row={false}
+                sliderHidden={true}
+              />
+            }
             <SubmitButton
               onSubmit={handleSubmit}
               prevRoute={prevRoute}
@@ -97,10 +106,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
+    position: "absolute",
     width: "95%",
-    height: "95%",
+    height: "98%",
     backgroundColor: "white",
-    paddingVertical: 15,
+    paddingVertical: normalize(15),
     borderRadius: 20,
     alignItems: "center",
     shadowColor: "#000",
@@ -110,7 +120,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: normalize(5),
   },
 });
 
